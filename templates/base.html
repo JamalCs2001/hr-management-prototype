@@ -30,6 +30,39 @@
         .dark .glass {
             background: rgba(30, 41, 59, 0.7);
         }
+        
+        /* Mobile Responsive Fixes */
+        @media (max-width: 640px) {
+            .max-w-md, 
+            .max-w-7xl, 
+            main > div {
+                width: calc(100% - 32px) !important;
+                max-width: 100% !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+            .p-8 { padding: 20px !important; }
+
+            input, button, select, textarea {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            .grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            body {
+                overflow-x: hidden !important;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
     </style>
     <script>
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
