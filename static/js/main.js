@@ -24,7 +24,7 @@ if (themeToggleBtn) {
 // Translations dictionary
 const translations = {
     en: {
-        brand_name: "HR System",
+        brand_name: "Asasat Development",
         nav_dashboard: "Dashboard",
         nav_tasks: "Tasks",
         nav_my_tasks: "My Tasks",
@@ -86,7 +86,7 @@ const translations = {
         no_employees: "No employees found.",
         
         login_title: "Welcome Back",
-        login_subtitle: "Sign in to the HR Management Prototype",
+        login_subtitle: "Sign in to Asasat Development HR",
         label_email: "Email Address",
         label_password: "Password",
         remember_me: "Remember me",
@@ -94,7 +94,7 @@ const translations = {
         btn_login: "Sign in"
     },
     ar: {
-        brand_name: "نظام الموارد البشرية",
+        brand_name: "تطوير أساسات",
         nav_dashboard: "لوحة القيادة",
         nav_tasks: "المهام",
         nav_my_tasks: "مهامي",
@@ -156,7 +156,7 @@ const translations = {
         no_employees: "لم يتم العثور على موظفين.",
         
         login_title: "مرحباً بعودتك",
-        login_subtitle: "قم بتسجيل الدخول إلى نموذج النظام",
+        login_subtitle: "قم بتسجيل الدخول إلى نظام الموارد البشرية لأساسات",
         label_email: "البريد الإلكتروني",
         label_password: "كلمة المرور",
         remember_me: "تذكرني",
@@ -233,4 +233,25 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         updateCount();
     });
+});
+
+// Mobile Sidebar Toggle
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    if (mobileMenuBtn && sidebar && sidebarOverlay) {
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.remove('hidden');
+            sidebar.classList.add('flex');
+            sidebarOverlay.classList.remove('hidden');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.add('hidden');
+            sidebar.classList.remove('flex');
+            sidebarOverlay.classList.add('hidden');
+        });
+    }
 });
