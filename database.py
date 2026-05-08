@@ -82,7 +82,7 @@ def init_db():
         c.execute('''
             INSERT INTO users (name, email, password, role)
             VALUES 
-            ('CEO Manager', 'ceo@hotmail.com', 'ceo12389', 'Admin'),
+            ('CEO Manager', 'ceo@hotmail.com', 'ceo123456', 'Admin'),
             ('HR Employee', 'hr@hotmail.com', 'hr123456', 'HR'),
             ('Accounting Employee', 'acount@hotmail.com', 'ac1233456', 'Employee')
         ''')

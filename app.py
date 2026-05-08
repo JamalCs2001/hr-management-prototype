@@ -161,6 +161,9 @@ def hr_tasks():
         if 'attachment' in request.files:
             file = request.files['attachment']
             if file and file.filename != '':
+                if not file.filename.lower().endswith('.pdf'):
+                    flash('Only PDF files are allowed.', 'error')
+                    return redirect(request.url)
                 filename = secure_filename(file.filename)
                 filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 file.save(filepath)
@@ -283,6 +286,9 @@ def create_task():
     if 'attachment' in request.files:
         file = request.files['attachment']
         if file and file.filename != '':
+            if not file.filename.lower().endswith('.pdf'):
+                flash('Only PDF files are allowed.', 'error')
+                return redirect(request.referrer)
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
@@ -352,6 +358,9 @@ def employee_tasks():
         if 'attachment' in request.files:
             file = request.files['attachment']
             if file and file.filename != '':
+                if not file.filename.lower().endswith('.pdf'):
+                    flash('Only PDF files are allowed.', 'error')
+                    return redirect(request.url)
                 filename = secure_filename(file.filename)
                 filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 file.save(filepath)
