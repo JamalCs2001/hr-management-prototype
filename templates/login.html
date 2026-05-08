@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block no_nav_content %}
+<div class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+    <!-- Background Decoration -->
+    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-slate-800 -z-10"></div>
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-400/20 dark:bg-blue-600/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-400/20 dark:bg-indigo-600/10 rounded-full blur-3xl"></div>
+
+    <div class="w-full max-w-md bg-white dark:bg-darkCard rounded-2xl shadow-xl overflow-hidden border border-slate-100 dark:border-slate-700 transform transition-all hover:-translate-y-1 duration-500">
+        <div class="p-8">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-blue-100 text-primary dark:bg-blue-900/30 mb-4">
+                    <i data-lucide="layers" class="w-8 h-8"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-slate-900 dark:text-white" data-lang="login_title">Welcome Back</h1>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2" data-lang="login_subtitle">Sign in to the HR Management Prototype</p>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="mb-4 p-3 rounded-lg text-sm bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 flex items-center">
+                      <i data-lucide="alert-circle" class="w-4 h-4 me-2"></i>
+                      {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('login') }}" method="POST" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" data-lang="label_email">Email Address</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="mail" class="w-5 h-5 text-slate-400"></i>
+                        </div>
+                        <input type="email" name="email" required class="block w-full pl-10 pr-3 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="ceo@hotmail.com" value="ceo@hotmail.com">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" data-lang="label_password">Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="lock" class="w-5 h-5 text-slate-400"></i>
+                        </div>
+                        <input type="password" name="password" required class="block w-full pl-10 pr-3 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="••••••••" value="ceo12389">
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" class="w-4 h-4 text-primary bg-slate-100 border-slate-300 rounded focus:ring-primary dark:bg-slate-700 dark:border-slate-600">
+                        <label for="remember" class="ml-2 text-sm text-slate-600 dark:text-slate-400" data-lang="remember_me">Remember me</label>
+                    </div>
+                    <a href="#" class="text-sm font-medium text-primary hover:text-blue-700 dark:hover:text-blue-400 transition-colors" data-lang="forgot_pwd">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors dark:focus:ring-offset-darkCard" data-lang="btn_login">
+                    Sign in
+                </button>
+            </form>
+            
+            <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center text-sm">
+                <span class="text-slate-500">Language:</span>
+                <button id="langToggleLogin" class="font-medium text-primary hover:underline">English / العربية</button>
+            </div>
+            <!-- Theme Toggle for login -->
+            <div class="absolute top-4 right-4">
+                 <button id="themeToggleLogin" class="p-2 rounded-full bg-white dark:bg-darkCard shadow hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <i data-lucide="moon" class="w-5 h-5 hidden dark:block text-slate-800 dark:text-white"></i>
+                    <i data-lucide="sun" class="w-5 h-5 block dark:hidden text-slate-800 dark:text-white"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Logic specifically for login view theme toggle to sync with main.js
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('themeToggleLogin');
+        if(btn) {
+            btn.addEventListener('click', () => {
+                const html = document.documentElement;
+                if (html.classList.contains('dark')) {
+                    html.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    html.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
