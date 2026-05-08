@@ -87,12 +87,31 @@ def init_db():
             ('Accounting Employee', 'acount@hotmail.com', 'ac1233456', 'Employee')
         ''')
         
-        # Add some dummy tasks
+        # Add robust demo data to simulate an active environment
         c.execute('''
             INSERT INTO tasks (title, description, assigned_to, status, priority, deadline)
             VALUES
             ('Review Q3 OKRs', 'Review and approve the objectives for Q3.', 2, 'Pending', 'High', '2026-06-01'),
-            ('Onboard New Developer', 'Complete the onboarding process for the new Python dev.', 2, 'In Progress', 'Normal', '2026-05-15')
+            ('Onboard New Developer', 'Complete the onboarding process for the new Python dev.', 2, 'In Progress', 'Normal', '2026-05-15'),
+            ('Prepare Financial Report', 'Compile the monthly financial summary for the board meeting.', 3, 'Pending', 'High', '2026-05-10'),
+            ('Update Invoice Templates', 'Revise the corporate invoice templates with the new branding.', 3, 'Completed', 'Normal', '2026-05-01')
+        ''')
+        
+        c.execute('''
+            INSERT INTO messages (sender_id, receiver_id, message)
+            VALUES
+            (2, 1, 'Hello, the new developer onboarding is going well!'),
+            (3, 1, 'The financial report draft is ready for your review.'),
+            (1, 3, 'Please prioritize the financial report this week.'),
+            (1, 2, 'Are the Q3 OKRs finalized yet?')
+        ''')
+        
+        c.execute('''
+            INSERT INTO notifications (user_id, message, is_read)
+            VALUES
+            (1, 'You have 2 new unread messages from your team.', 0),
+            (2, 'You have been assigned a new task: Review Q3 OKRs', 0),
+            (3, 'You have been assigned a new task: Prepare Financial Report', 0)
         ''')
 
     conn.commit()

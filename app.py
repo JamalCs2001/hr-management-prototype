@@ -407,4 +407,4 @@ if __name__ == '__main__':
     # Auto-initialize DB for prototype simplicity
     if not os.path.exists('database.db'):
         init_db()
-    app.run(debug=True, port=5000)
+    app.run(debug=False, port=5000)
