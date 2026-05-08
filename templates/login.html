@@ -1,6 +1,21 @@
 {% extends 'base.html' %}
 
 {% block no_nav_content %}
+<style>
+    /* Robust RTL/LTR handling for login icons bypassing Tailwind CDN issues */
+    .login-icon-start { position: absolute; top: 0; bottom: 0; display: flex; align-items: center; pointer-events: none; }
+    .login-icon-end { position: absolute; top: 0; bottom: 0; display: flex; align-items: center; z-index: 10; cursor: pointer; }
+    
+    html[dir="ltr"] .login-icon-start { left: 0; padding-left: 0.75rem; }
+    html[dir="ltr"] .login-icon-end { right: 0; padding-right: 0.75rem; }
+    html[dir="ltr"] .login-input { padding-left: 2.5rem; padding-right: 0.75rem; }
+    html[dir="ltr"] .login-input-pwd { padding-left: 2.5rem; padding-right: 2.75rem; }
+
+    html[dir="rtl"] .login-icon-start { right: 0; padding-right: 0.75rem; }
+    html[dir="rtl"] .login-icon-end { left: 0; padding-left: 0.75rem; }
+    html[dir="rtl"] .login-input { padding-right: 2.5rem; padding-left: 0.75rem; }
+    html[dir="rtl"] .login-input-pwd { padding-right: 2.5rem; padding-left: 2.75rem; }
+</style>
 <div class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
     <!-- Background Decoration -->
     <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-slate-800 -z-10"></div>
@@ -32,21 +47,21 @@
                 <div>
                     <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" data-lang="label_email">Email Address</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 ltr:left-0 rtl:right-0 ltr:pl-3 rtl:pr-3 flex items-center pointer-events-none">
+                        <div class="login-icon-start">
                             <i data-lucide="mail" class="w-5 h-5 text-slate-400"></i>
                         </div>
-                        <input type="email" name="email" required class="block w-full ltr:pl-10 rtl:pr-10 ltr:pr-3 rtl:pl-3 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="user@example.com">
+                        <input type="email" name="email" required class="block w-full py-2.5 login-input border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="user@example.com">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" data-lang="label_password">Password</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 ltr:left-0 rtl:right-0 ltr:pl-3 rtl:pr-3 flex items-center pointer-events-none">
+                        <div class="login-icon-start">
                             <i data-lucide="lock" class="w-5 h-5 text-slate-400"></i>
                         </div>
-                        <input type="password" id="password" name="password" required class="block w-full ltr:pl-10 rtl:pr-10 ltr:pr-12 rtl:pl-12 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="••••••••">
-                        <button type="button" id="togglePassword" class="absolute inset-y-0 ltr:right-0 rtl:left-0 ltr:pr-3 rtl:pl-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none cursor-pointer z-10">
+                        <input type="password" id="password" name="password" required class="block w-full py-2.5 login-input-pwd border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary transition-colors" placeholder="••••••••">
+                        <button type="button" id="togglePassword" class="login-icon-end text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none">
                             <span id="eyeIconShow"><i data-lucide="eye" class="w-5 h-5"></i></span>
                             <span id="eyeIconHide" class="hidden"><i data-lucide="eye-off" class="w-5 h-5"></i></span>
                         </button>
