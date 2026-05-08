@@ -412,8 +412,9 @@ def messages():
     
     return render_template('messages.html', messages=received_msgs, users=users)
 
+# Auto-initialize DB on Render / gunicorn
+if not os.path.exists('database.db'):
+    init_db()
+
 if __name__ == '__main__':
-    # Auto-initialize DB for prototype simplicity
-    if not os.path.exists('database.db'):
-        init_db()
     app.run(debug=False, port=5000)
