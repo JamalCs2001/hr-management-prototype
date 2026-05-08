@@ -9,6 +9,12 @@ def get_db_connection():
     return conn
 
 def init_db():
+    if os.path.exists(DB_PATH):
+        try:
+            os.remove(DB_PATH)
+        except PermissionError:
+            pass # On Windows it might be locked, but Render is Linux so it will work.
+
     conn = get_db_connection()
     c = conn.cursor()
 
@@ -82,7 +88,7 @@ def init_db():
         c.execute('''
             INSERT INTO users (name, email, password, role)
             VALUES 
-            ('CEO Manager', 'ceo@hotmail.com', 'ceo123456', 'Admin'),
+            ('CEO Manager', 'ceo@hotmail.com', 'ceo12389', 'Admin'),
             ('HR Employee', 'hr@hotmail.com', 'hr123456', 'HR'),
             ('Accounting Employee', 'acount@hotmail.com', 'ac1233456', 'Employee')
         ''')
