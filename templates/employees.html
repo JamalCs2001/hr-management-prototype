@@ -11,11 +11,18 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {% for employee in employees %}
     <div class="bg-white dark:bg-darkCard rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 p-6 flex items-start space-x-4">
-        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xl font-bold text-slate-500 dark:text-slate-400 shrink-0">
-            {{ employee.name[:1] }}
+        <div class="relative shrink-0">
+            <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xl font-bold text-slate-500 dark:text-slate-400">
+                {{ employee.name[:1] }}
+            </div>
+            {% set is_online = employee.is_online %}
+            <div class="absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white dark:border-darkCard {{ 'bg-green-500' if is_online else 'bg-slate-400' }}" title="{{ 'Online' if is_online else 'Offline' }}"></div>
         </div>
-        <div>
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ employee.name }}</h3>
+        <div class="flex-1">
+            <div class="flex justify-between items-start">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ employee.name }}</h3>
+                <span class="text-[10px] text-slate-400 whitespace-nowrap" dir="rtl">{{ 'متصل الآن' if is_online else employee.last_seen|timeago }}</span>
+            </div>
             <p class="text-sm text-slate-500 dark:text-slate-400 mb-2">{{ employee.email }}</p>
             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200">
                 {{ employee.role }}

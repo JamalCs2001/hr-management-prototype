@@ -173,7 +173,8 @@ let currentLang = localStorage.getItem('lang') || 'en';
 function setLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('lang', lang);
-    htmlRoot.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    // Layout always stays LTR — only text content changes
+    htmlRoot.setAttribute('dir', 'ltr');
     htmlRoot.setAttribute('lang', lang);
     
     // Update texts
@@ -183,19 +184,6 @@ function setLanguage(lang) {
             el.textContent = translations[lang][key];
         }
     });
-
-    // RTL fix for Lucide Icons margin
-    if(lang === 'ar') {
-        document.querySelectorAll('i[data-lucide]').forEach(icon => {
-            if(icon.classList.contains('mr-2')) { icon.classList.remove('mr-2'); icon.classList.add('ml-2'); }
-            if(icon.classList.contains('mr-3')) { icon.classList.remove('mr-3'); icon.classList.add('ml-3'); }
-        });
-    } else {
-        document.querySelectorAll('i[data-lucide]').forEach(icon => {
-            if(icon.classList.contains('ml-2')) { icon.classList.remove('ml-2'); icon.classList.add('mr-2'); }
-            if(icon.classList.contains('ml-3')) { icon.classList.remove('ml-3'); icon.classList.add('mr-3'); }
-        });
-    }
 }
 
 // Initial set
